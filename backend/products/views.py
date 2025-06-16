@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from .models import Category, Brand, Product, ProductImage, ProductVariant
 from .serializers import CategorySerializer, BrandSerializer, ProductSerializer, ProductImageSerializer, ProductVariantSerializer
@@ -18,6 +19,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.filter(is_active=True)
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category', 'price', 'is_in_stock']
 
     def get_queryset(self):
         if self.request.user.is_authenticated and self.request.user.is_admin_user:

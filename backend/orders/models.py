@@ -160,12 +160,14 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     shipped_at = models.DateTimeField(null=True, blank=True)
     delivered_at = models.DateTimeField(null=True, blank=True)
-    
+
+    # ✅ FIXED: Auto-calculate total_amount before saving
     def save(self, *args, **kwargs):
         if not self.order_number:
             self.order_number = self.generate_order_number()
+        self.total_amount = self.subtotal + self.tax_amount + self.shipping_cost
         super().save(*args, **kwargs)
-    
+
     def generate_order_number(self):
         """Generate unique order number"""
         import random
