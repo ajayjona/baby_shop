@@ -20,7 +20,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category', 'price', 'is_in_stock']
+    filterset_fields = ['category', 'price']
 
     def get_queryset(self):
         if self.request.user.is_authenticated and self.request.user.is_admin_user:

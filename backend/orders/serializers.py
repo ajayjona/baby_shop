@@ -2,16 +2,17 @@ from rest_framework import serializers
 from .models import Cart, CartItem, Order, OrderItem, Wishlist, WishlistItem
 from products.serializers import ProductSerializer, ProductVariantSerializer
 from users.serializers import UserSerializer
+from products.models import Product
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
-    variant = ProductVariantSerializer(read_only=True)
-    unit_price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
-    subtotal = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
-    class Meta:
-        model = CartItem
-        fields = ('id', 'cart', 'product', 'variant', 'quantity', 'unit_price', 'subtotal', 'created_at')
-        read_only_fields = ('created_at', 'updated_at')
+   product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), required=True)
+   variant = ProductVariantSerializer(read_only=True)
+   unit_price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+   subtotal = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+   class Meta:
+       model = CartItem
+       fields = ('id', 'cart', 'product', 'variant', 'quantity', 'unit_price', 'subtotal', 'created_at')
+       read_only_fields = ('created_at', 'updated_at')
 
 class CartSerializer(serializers.ModelSerializer):
     items = CartItemSerializer(many=True, read_only=True)

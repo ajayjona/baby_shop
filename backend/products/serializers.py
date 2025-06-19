@@ -42,6 +42,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'vendor', 'price', 'original_price', 'stock_quantity', 'low_stock_threshold',
             'age_range', 'condition', 'weight', 'dimensions', 'meta_title', 'meta_description',
             'tags', 'is_active', 'is_featured', 'is_digital', 'average_rating', 'total_reviews',
-            'is_on_sale', 'discount_percentage', 'is_in_stock', 'is_low_stock', 'images', 'variants', 'created_at'
+            'is_on_sale', 'discount_percentage', 'is_low_stock', 'images', 'variants', 'created_at'
         )
         read_only_fields = ('slug', 'created_at', 'updated_at', 'average_rating', 'total_reviews')
