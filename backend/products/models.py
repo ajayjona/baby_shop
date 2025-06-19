@@ -102,11 +102,7 @@ class Product(models.Model):
     short_description = models.CharField(max_length=500, blank=True)
     
     # Product Details
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name='products'
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     brand = models.ForeignKey(
         Brand,
         on_delete=models.SET_NULL,
