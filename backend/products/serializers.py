@@ -33,7 +33,6 @@ class ProductSerializer(serializers.ModelSerializer):
     variants = ProductVariantSerializer(many=True, read_only=True)
     is_on_sale = serializers.BooleanField(read_only=True)
     discount_percentage = serializers.IntegerField(read_only=True)
-    is_in_stock = serializers.BooleanField(read_only=True)
     is_low_stock = serializers.BooleanField(read_only=True)
     class Meta:
         model = Product
